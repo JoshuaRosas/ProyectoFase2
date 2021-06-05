@@ -1,17 +1,23 @@
+//IMPLEMENTADO POR JOSHUA ROSAS
+import java.util.Scanner;
 
-public class CasaCambio {
+public class CasaCambio implements Comparable<CasaCambio> {
 	private String nombre;
 	private String direccion;
 	private double precioVenta;
 	private double precioCompra;
-	TDAList <CasaCambio> aux2;
+	OrderListLinked <CasaCambio> aux2;
+	Scanner entradaDatos = new Scanner(System.in);
 	
 	public CasaCambio(String nombre, String direccion, double precioVenta, double precioCompra) {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.precioVenta = precioVenta;
 		this.precioCompra = precioCompra;
-		aux2 = new ListLinked<CasaCambio>();
+	}
+	
+	public CasaCambio() {
+		aux2 = new OrderListLinked<CasaCambio>();
 	}
 	
 	public String getNombre() {
@@ -46,11 +52,79 @@ public class CasaCambio {
 		this.precioCompra = precioCompra;
 	}
 	
-	@Override
-	public String toString() {
-		return "CasaCambio [nombre=" + nombre + ", direccion=" + direccion + ", precioVenta=" + precioVenta
-				+ ", precioCompra=" + precioCompra + "]";
+	public void agregarCasa() {
+		String n1;
+		String d1;
+		int pc1;
+		int pv1;
+		System.out.println("Ingrese sus datos");
+		System.out.print("Nombre: ");
+		n1 = entradaDatos.nextLine();
+		System.out.print("Direccion: ");
+		d1 = entradaDatos.nextLine();
+		System.out.print("Precio de Compra: ");
+		pc1 = entradaDatos.nextInt();
+		System.out.print("Precio de Venta: ");
+		pv1 = entradaDatos.nextInt();
+		CasaCambio casa1 = new CasaCambio(n1, d1, pc1, pv1);
+		if(aux2.isEmptyList()) {
+			aux2.insert(casa1);
+		} else {
+			int v = aux2.search(casa1);
+			if(v == 1) {
+				System.out.println("La casa de cambio ya esta registrada");
+			} else if(v == -1) {
+				aux2.insert(casa1);
+				System.out.println("La casa de cambio ha sido registrada");
+			}
+		}
 	}
 	
+	public void eliminarCasa() {
+		String n1;
+		String d1;
+		int pc1;
+		int pv1;
+		System.out.println("Ingrese sus datos");
+		System.out.print("Nombre: ");
+		n1 = entradaDatos.nextLine();
+		System.out.print("Direccion: ");
+		d1 = entradaDatos.nextLine();
+		System.out.print("Precio de Compra: ");
+		pc1 = entradaDatos.nextInt();
+		System.out.print("Precio de Venta: ");
+		pv1 = entradaDatos.nextInt();
+		CasaCambio casa1 = new CasaCambio(n1, d1, pc1, pv1);
+		
+	}
+	
+	public void mostrarCasas() {
+		System.out.println(aux2);
+	}
+	
+	@Override
+	public String toString() {
+		return "Nombre: " + this.nombre + "\n" + 
+	"Direccion: " + this.direccion + "\n" + 
+				"Precio de Compra: " + this.precioCompra + "\n" + 
+	"Precio de Venta: " + this.precioVenta + "\n";
+	}
+	
+	public int compareTo(CasaCambio o) {
+		
+		int ord = getNombre().compareTo(o.getNombre());
+		
+		return (ord != 0? ord:getNombre().compareTo(o.getNombre()));
+		
+		/*
+		 int resultado = -1;
+		 if(this.precioCompra == o.getPrecioCompra()) {
+			 resultado = 0;
+		 } else if (this.precioCompra > o.getPrecioCompra() ) {
+			 resultado = 1;      
+		 } 
+		 return resultado;
+		 */ 
+	}
 	
 }

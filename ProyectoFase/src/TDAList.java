@@ -1,3 +1,4 @@
+//IMPLEMENTADO
 
 public interface TDAList<T> {
 	boolean isEmptyList();

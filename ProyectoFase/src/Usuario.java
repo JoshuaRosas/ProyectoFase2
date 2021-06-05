@@ -1,13 +1,15 @@
+//IMPLEMENTADO POR JOSHUA ROSAS
+//IMPLEMENTADO POR ALEJANDRA MELGAR
 import java.util.Scanner;
 
 public class Usuario {
-	private String nombre;
+	private String usuario;
 	private String contraseña;
 	TDAList <Usuario> aux;
 	Scanner entradaDatos = new Scanner(System.in);
 	
-	public Usuario(String nombre, String contraseña) {
-		this.nombre = nombre;
+	public Usuario(String usuario, String contraseña) {
+		this.usuario = usuario;
 		this.contraseña = contraseña;
 	}
 	
@@ -15,12 +17,12 @@ public class Usuario {
 		aux = new ListLinked<Usuario>();
 	}
 	
-	public String getNombre() {
-		return nombre;
+	public String getUsuario() {
+		return usuario;
 	}
 	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre(String usuario) {
+		this.usuario = usuario;
 	}
 	
 	public String getContraseña() {
@@ -34,7 +36,7 @@ public class Usuario {
 	public void crearCuenta() {
 		String n1;
 		String c1;
-		System.out.println("Ingrese su nombre y contraseña");
+		System.out.println("Ingrese sus datos");
 		System.out.print("Nombre: ");
 		n1 = entradaDatos.nextLine();
 		System.out.print("Contraseña: ");
@@ -43,7 +45,13 @@ public class Usuario {
 		if(aux.isEmptyList()) {
 			aux.insertFirst(usuario1);
 		} else {
-			aux.insertLast(usuario1);
+			int v = aux.search(usuario1);
+			if(v == 1) {
+				System.out.println("La cuenta ya existe");
+			} else if(v == -1) {
+				aux.insertLast(usuario1);
+				System.out.println("La cuenta ha sido creada, Bienvenido");
+			}
 		}
 	}
 	
@@ -58,9 +66,27 @@ public class Usuario {
 		Usuario usuario1 = new Usuario(n1, c1);
 		int comp = aux.search(usuario1);
 		if(comp == 1) {
-			System.out.println("Usuario encontrado");
-		} else {
-			System.out.println("Usuario no exitente");
+			System.out.println("Bienvenido");
+		} else if(comp == -1) {
+			System.out.println("Usuario no existente");
+		}
+	}
+	
+	public void eliminarCuenta() {
+		String n1;
+		String c1;
+		System.out.println("Ingrese su usuario y contraseña");
+		System.out.print("Nombre: ");
+		n1 = entradaDatos.nextLine();
+		System.out.print("Contraseña: ");
+		c1 = entradaDatos.nextLine();
+		Usuario usuario1 = new Usuario(n1, c1);
+		int comp = aux.search(usuario1);
+		if(comp == 1) {
+			aux.remove(usuario1);
+			System.out.println("Su cuenta a sido eliminada");
+		} else if(comp == -1) {
+			System.out.println("Usuario no existente");
 		}
 	}
 	

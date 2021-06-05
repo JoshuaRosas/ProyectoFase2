@@ -1,10 +1,10 @@
+//IMPLEMENTADO
 
 public class OrderListLinked<T extends Comparable<T>> extends ListLinked<T> {
 	
 	public OrderListLinked() {
 		super();
 		// TODO Auto-generated constructor stub
-		
 	}
 	
 	public int search(T x) {
@@ -72,7 +72,8 @@ public class OrderListLinked<T extends Comparable<T>> extends ListLinked<T> {
 		String str = "";
 		Node<T> aux = this.first;
 		for(int i = 0; aux != null; aux = aux.getNext(), i++) {
-			str += "[" + i + "] =  " + aux.getData() + "\n";
+			str += i + ": " + aux.getData() + "\n";
+			//str += "[" + i + "] =  " + aux.getData() + "\n";
 		}
 		return str;
 	}

@@ -1,3 +1,4 @@
+//IMPLEMENTADO
 
 public class ListLinked<T> implements TDAList<T> {
 	protected Node<T> first;
@@ -78,7 +79,8 @@ public class ListLinked<T> implements TDAList<T> {
 		String str = "";
 		Node<T> aux = this.first;
 		for(int i = 0; aux != null; aux = aux.getNext(), i++) {
-			str += "[" + i + "] =  " + aux.getData() + "\n";
+			str += i + ": " + aux.getData() + "\n";
+			//str += "[" + i + "] =  " + aux.getData() + "\n";
 		}
 		return str;
 	}
