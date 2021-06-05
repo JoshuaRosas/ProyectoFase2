@@ -93,7 +93,7 @@ public class Ventana1 extends JFrame {
 		
 		labelmagen1.setBounds(106, 183, 86, 135);
 		
-		ImageIcon ico1 = new ImageIcon("C:\\Users\\LEGION\\Downloads\\monedaSol.png");
+		ImageIcon ico1 = new ImageIcon("C:\\Users\\Joshua\\Downloads\\ProtopitoInterfaz\\src\\monedaSol.png");
 		labelmagen1.setIcon(new ImageIcon(ico1.getImage().getScaledInstance(74, 179, Image.SCALE_SMOOTH)));
 		contentPane.add(labelmagen1);
 		

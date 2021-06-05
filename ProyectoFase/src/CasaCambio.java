@@ -110,21 +110,10 @@ public class CasaCambio implements Comparable<CasaCambio> {
 	"Precio de Venta: " + this.precioVenta + "\n";
 	}
 	
-	public int compareTo(CasaCambio o) {
-		
+	public int compareTo(CasaCambio o) {	
 		int ord = getNombre().compareTo(o.getNombre());
 		
 		return (ord != 0? ord:getNombre().compareTo(o.getNombre()));
-		
-		/*
-		 int resultado = -1;
-		 if(this.precioCompra == o.getPrecioCompra()) {
-			 resultado = 0;
-		 } else if (this.precioCompra > o.getPrecioCompra() ) {
-			 resultado = 1;      
-		 } 
-		 return resultado;
-		 */ 
 	}
 	
 }

@@ -1,15 +1,15 @@
 //IMPLEMENTADO POR JOSHUA ROSAS
-//IMPLEMENTADO POR ALEJANDRA MELGAR
+
 import java.util.Scanner;
 
-public class Usuario {
-	private String usuario;
+public class Usuario extends Persona {
+	private String nombreU;
 	private String contraseña;
 	TDAList <Usuario> aux;
 	Scanner entradaDatos = new Scanner(System.in);
 	
-	public Usuario(String usuario, String contraseña) {
-		this.usuario = usuario;
+	public Usuario(String nombreU, String contraseña) {
+		this.nombreU = nombreU;
 		this.contraseña = contraseña;
 	}
 	
@@ -17,12 +17,12 @@ public class Usuario {
 		aux = new ListLinked<Usuario>();
 	}
 	
-	public String getUsuario() {
-		return usuario;
+	public String getNombreU() {
+		return nombreU;
 	}
 	
-	public void setNombre(String usuario) {
-		this.usuario = usuario;
+	public void setNombreU(String nombreU) {
+		this.nombreU = nombreU;
 	}
 	
 	public String getContraseña() {
@@ -32,7 +32,7 @@ public class Usuario {
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
-	
+	/*
 	public void crearCuenta() {
 		String n1;
 		String c1;
@@ -54,7 +54,7 @@ public class Usuario {
 			}
 		}
 	}
-	
+	*/
 	public void iniciarSesion() {
 		String n1;
 		String c1;
@@ -88,6 +88,13 @@ public class Usuario {
 		} else if(comp == -1) {
 			System.out.println("Usuario no existente");
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Datos de Registro Usuario:\n "+
+				"Usuario: "+ this.nombreU + 
+				"\nContraseña:" + this.contraseña + "\n\n"+ super.toString();
 	}
 	
 }

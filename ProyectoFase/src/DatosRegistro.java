@@ -70,7 +70,7 @@ public class DatosRegistro extends Usuario{
 					 conf = false;
 					 if(a == 0) {
 						 try {
-							 setUsuario(validarUsuario(User, "Usuario"));
+							 setNombreU(validarUsuario(User, "Usuario"));
 							 setContraseña(validarUsuario(Passw, "Contraseña"));
 						 } catch (WrongType e) {
 							 a = JOptionPane.showConfirmDialog(null,e.getMessage(),"DATA NO VALIDO", JOptionPane.OK_CANCEL_OPTION);
@@ -87,10 +87,10 @@ public class DatosRegistro extends Usuario{
 					 conf = false;
 					 JOptionPane.showConfirmDialog(null,"Registro Cancelado","Registro",JOptionPane.OK_CANCEL_OPTION);
 					 setDNI(0);
-					 setNombre("");
+					 setNombreU("");
 					 setApePaterno("");
 					 setApeMaterno("");
-					 setUsuario("");
+					 setNombreU("");
 					 setContraseña("");
 				 }else {
 					 JOptionPane.showConfirmDialog(null,"Gracias Por Registrase En ...","Bienvenido",JOptionPane.OK_CANCEL_OPTION);

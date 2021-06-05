@@ -56,7 +56,7 @@ public class VentanaDeInicio extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\LEGION\\Downloads\\micro-bbva-tcambio-dolares.png.img.320.1597958348758.png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Joshua\\Downloads\\ProtopitoInterfaz\\src\\micro-bbva-tcambio-dolares.png.img.320.1597958348758.png"));
 		lblNewLabel.setBounds(0, 140, 320, 298);
 		panel.add(lblNewLabel);
 		

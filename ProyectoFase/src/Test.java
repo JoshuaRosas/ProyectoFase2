@@ -23,10 +23,7 @@ public class Test {
 		
 		boolean Afirm = true;
 		DatosRegistro person = null;
-		ListLinked <UsuariosRegistrados> aux2 = new ListLinked<UsuariosRegistrados>();
-		ListLinked<Integer> l9 = new ListLinked<Integer>();
-		l9.insertFirst(15);
-		System.out.println(l9.toString());
+		//ListLinked <UsuariosRegistrados> aux2 = new ListLinked<UsuariosRegistrados>();
 		while (Afirm) {
 		String Opt = JOptionPane.showInputDialog(null, "Bienvenido a ... \n\n"
 				+ "1. Registrarse\n"
@@ -40,8 +37,8 @@ public class Test {
 				person = new DatosRegistro(); 
 				if (person.getConfir() == "P") {
 					System.out.println(person.getNombre());
-					aux2.insertLast(new UsuariosRegistrados(person.getNombre()));
-					System.out.println(aux2.toString());
+					//aux2.insertLast(new UsuariosRegistrados(person.getNombre()));
+					//System.out.println(aux2.toString());
 				}
 			}else if (Op == 2)
 				/*search.node*/;
@@ -51,25 +48,6 @@ public class Test {
 				Afirm = false;
 			}
 		}
-		
-		/*
-		System.out.println("TIENE CUENTA?");
-		String veri = entradaDato.nextLine();
-		String n = "no";
-		String s = "si";
-		if(veri == n) {
-			login.crearCuenta();
-			System.out.println("QUE DESEA REALIZAR?" + "\n" + 
-					"1. VER LAS CASAS DE CAMBIO DISPONIBLES" + "\n" + 
-					"2. ACTUALIZAR PRECIOS DEL CAMBIO DE MONEDA" + "\n");
-		} else if(veri == s) {
-			login.iniciarSesion();
-			System.out.println("QUE DESEA REALIZAR?" + "\n" + 
-					"1. VER LAS CASAS DE CAMBIO DISPONIBLES" + "\n" + 
-					"2. ACTUALIZAR PRECIOS DEL CAMBIO DE MONEDA" + "\n");
-		}
-		*/
-
 		
 	}
 
