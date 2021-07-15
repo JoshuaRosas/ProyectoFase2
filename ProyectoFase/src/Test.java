@@ -5,21 +5,13 @@ public class Test {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		/*
-		Scanner entradaDato = new Scanner(System.in);
-		System.out.println("BIENVENIDO");
-		Usuario login = new Usuario();
 		
-		System.out.println("Elija su ingreso");
-		System.out.println("1. Crear cuenta" + "\n" + "2. Iniciar sesion");
-		int eleccion = entradaDato.nextInt();
 		
-		if(eleccion == 1) {
-			login.crearCuenta();
-		} else if(eleccion == 2) {
-			login.iniciarSesion();
-		}
-		*/
+		CasaCambio a = new CasaCambio();
+		a.agregarCasa();
+		a.agregarCasa();
+		a.mostrarCasas();
+		
 		
 		boolean Afirm = true;
 		DatosRegistro person = null;
@@ -36,7 +28,7 @@ public class Test {
 			if (Op == 1) {
 				person = new DatosRegistro(); 
 				if (person.getConfir() == "P") {
-					System.out.println(person.getNombre());
+					System.out.println(person.getNombreU());
 					//aux2.insertLast(new UsuariosRegistrados(person.getNombre()));
 					//System.out.println(aux2.toString());
 				}
