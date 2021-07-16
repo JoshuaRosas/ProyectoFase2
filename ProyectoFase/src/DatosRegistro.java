@@ -2,7 +2,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
-public class DatosRegistro extends Usuario{
+public class DatosRegistro {/*
 	JTextField DNI = new JTextField();
 	JTextField apPat= new JTextField();
 	JTextField apMat = new JTextField();
@@ -146,5 +146,5 @@ public class DatosRegistro extends Usuario{
 	public String toString() {
 		return super.toString(); 
 	}
-	 
+	 */
 }

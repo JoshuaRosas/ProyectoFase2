@@ -3,110 +3,54 @@ import java.util.Scanner;
 
 public class CasaCambio implements Comparable<CasaCambio> {
 	private String nombre;
-	int ruc;
 	private String direccion;
-	private double precioVenta;
-	private double precioCompra;
-	//OrderListLinked <CasaCambio> aux2;
-	Hash<CasaCambio> aux2;
-	Scanner entradaDatos = new Scanner(System.in);
+	private BSTree<MonedasDeCambio> monedas;
 	
-	public CasaCambio(int ruc, String nombre, String direccion, double precioVenta, double precioCompra) {
-		this.ruc = ruc;
+	public CasaCambio(String nombre, String direccion, BSTree<MonedasDeCambio> monedas) {
+		super();
 		this.nombre = nombre;
 		this.direccion = direccion;
-		this.precioVenta = precioVenta;
-		this.precioCompra = precioCompra;
-	}
-	
-	public int getRuc() {
-		return ruc;
-	}
-
-	public void setRuc(int ruc) {
-		this.ruc = ruc;
+		this.monedas = monedas;
 	}
 
 	public CasaCambio() {
-		aux2 = new Hash<CasaCambio>(15);
+		super();
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getDireccion() {
 		return direccion;
 	}
-	
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
-	public double getPrecioVenta() {
-		return precioVenta;
+
+	public BSTree<MonedasDeCambio> getMonedas() {
+		return monedas;
 	}
-	
-	public void setPrecioVenta(double precioVenta) {
-		this.precioVenta = precioVenta;
-	}
-	
-	public double getPrecioCompra() {
-		return precioCompra;
-	}
-	
-	public void setPrecioCompra(double precioCompra) {
-		this.precioCompra = precioCompra;
-	}
-	
-	public void agregarCasa() {
-		int r1;
-		String n1;
-		String d1;
-		int pc1;
-		int pv1;
-		System.out.println("Ingrese sus datos");
-		System.out.print("Nombre: ");
-		n1 = entradaDatos.nextLine();
-		System.out.print("Direccion: ");
-		d1 = entradaDatos.nextLine();
-		System.out.print("Precio de Compra: ");
-		pc1 = entradaDatos.nextInt();
-		System.out.print("Precio de Venta: ");
-		pv1 = entradaDatos.nextInt();
-		System.out.print("Primer digito del RUC: ");
-		r1 = entradaDatos.nextInt();
-		CasaCambio casa1 = new CasaCambio(r1, n1, d1, pc1, pv1);
-		aux2.insert(r1, casa1);
-	}
-	
-	public void eliminarCasa() {
-		int r1;
-		System.out.print("Primer digito del RUC: ");
-		r1 = entradaDatos.nextInt();
-		aux2.remove(r1);
-	}
-	
-	public void mostrarCasas() {
-		System.out.println(aux2);
+
+	public void setMonedas(BSTree<MonedasDeCambio> monedas) {
+		this.monedas = monedas;
 	}
 	
 	@Override
 	public String toString() {
-		return "Nombre: " + this.nombre + "\n" + 
-	"Direccion: " + this.direccion + "\n" + 
-				"Precio de Compra: " + this.precioCompra + "\n" + 
-	"Precio de Venta: " + this.precioVenta + "\n";
+		return "Datos De La Casa: Nombre: " + nombre + ", Direccion: " + direccion+ "\n\t\t   Monedas De La Casa:" + monedas+"";
 	}
-	
-	public int compareTo(CasaCambio o) {	
-		int ord = getNombre().compareTo(o.getNombre());
-		
-		return (ord != 0? ord:getNombre().compareTo(o.getNombre()));
+
+	@Override
+	public int compareTo(CasaCambio o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-	
+
+
 }

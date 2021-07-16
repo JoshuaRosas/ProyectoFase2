@@ -1,87 +1,45 @@
-//IMPLEMENTADO POR JOSHUA ROSAS
-
-import java.util.Scanner;
-
-public class Usuario implements Comparable<Usuario> {
-	private String nombreU;
+public class Usuario implements Comparable<Usuario>{
+	private Persona usuario;
 	private String contraseña;
-	Hash<Usuario> aux;
-	Scanner entradaDatos = new Scanner(System.in);
-	
-	public Usuario(String nombreU, String contraseña) {
-		this.nombreU = nombreU;
+	private ListLinked<CasaCambio> puesto;
+	public Usuario(Persona usuario, String contraseña, ListLinked<CasaCambio> puesto) {
+		super();
+		this.usuario =  usuario;
 		this.contraseña = contraseña;
+		this.puesto = puesto;
 	}
 	
 	public Usuario() {
-		aux = new Hash<Usuario>(30);
+		super();
 	}
-	
-	public String getNombreU() {
-		return nombreU;
+
+	public Persona getUsuario() {
+		return usuario;
 	}
-	
-	public void setNombreU(String nombreU) {
-		this.nombreU = nombreU;
+	public void setUsuario(Persona usuario) {
+		this.usuario = usuario;
 	}
-	
 	public String getContraseña() {
 		return contraseña;
 	}
-	
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
-	
-	public void crearCuenta() {
-		String n1;
-		String c1;
-		int r1;
-		System.out.println("Ingrese sus datos");
-		System.out.print("Nombre: ");
-		n1 = entradaDatos.nextLine();
-		System.out.print("Contraseña: ");
-		c1 = entradaDatos.nextLine();
-		System.out.print("Primer digito del DNI: ");
-		r1 = entradaDatos.nextInt();
-		Usuario usuario1 = new Usuario(n1, c1);
-		aux.insert(r1, usuario1);
+	public ListLinked<CasaCambio> getPuesto() {
+		return puesto;
 	}
-	
-	public void iniciarSesion() {
-		String n1;
-		String c1;
-		int r1;
-		System.out.println("Ingrese su nombre y contraseña");
-		System.out.print("Nombre: ");
-		n1 = entradaDatos.nextLine();
-		System.out.print("Contraseña: ");
-		c1 = entradaDatos.nextLine();
-		System.out.print("Primer digito del DNI: ");
-		r1 = entradaDatos.nextInt();
-		Usuario usuario1 = new Usuario(n1, c1);
-		aux.search(r1);
+	public void setPuesto(ListLinked<CasaCambio> puesto) {
+		this.puesto = puesto;
 	}
-	
-	public void eliminarCuenta() {
-		int r1;
-		System.out.print("Primer digito del DNI: ");
-		r1 = entradaDatos.nextInt();
-		aux.remove(r1);
-		
-	}
-	
 	@Override
 	public String toString() {
-		return "Datos de Registro Usuario:\n "+
-				"Usuario: "+ this.nombreU + 
-				"\nContraseña:" + this.contraseña + "\n\n"+ super.toString();
+		return  "Usuario --> Datos personales:" + usuario + " - Contraseña: " + contraseña + "\n\t\tCasasDeCambio:" + puesto ;
 	}
-	
-	public int compareTo(Usuario o) {	
-		int ord = getNombreU().compareTo(o.getNombreU());
-		
-		return (ord != 0? ord:getNombreU().compareTo(o.getNombreU()));
+
+	@Override
+	public int compareTo(Usuario o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

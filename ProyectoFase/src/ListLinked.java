@@ -33,7 +33,18 @@ public class ListLinked<T> implements TDAList<T> {
 		}
 		return -1;
 	}
-	
+	public T searchint (int i) {
+		Node<T> aux = this.first;
+		int j = 0;
+		do {
+			if(i==j) {
+				return aux.getData();
+			}
+			aux = aux.getNext();
+			j++;
+		}while(aux!=null);
+		return null;
+	}
 	public void insertLast(T x) {
 		if(this.isEmptyList()) {
 			this.insertFirst(x);
@@ -76,12 +87,10 @@ public class ListLinked<T> implements TDAList<T> {
 	
 	@Override
 	public String toString() {
-		String str = "";
+		String str="";
 		Node<T> aux = this.first;
-		for(int i = 0; aux != null; aux = aux.getNext(), i++) {
-			str += i + ": " + aux.getData() + "\n";
-			//str += "[" + i + "] =  " + aux.getData() + "\n";
-		}
+		for (int i=0; aux != null; aux = aux.getNext(), i++)
+			str += "  ["+i+"] = "+aux.getData()+"";
 		return str;
 	}
 }

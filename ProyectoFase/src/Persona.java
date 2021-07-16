@@ -1,17 +1,18 @@
-//IMPLEMENTADO POR GABRIEL LEVANO
-
 public class Persona{
-	
 	private String nombre;
-	private String apePaterno;
-	private String apeMaterno;
-	private int DNI;
-	
-	public Persona(){
-		this.nombre = "";
-		this.apePaterno = "";
-		this.apeMaterno = "";
-		this.DNI = 0;
+	private String apellidos;
+	private String correoElectronico;
+	public Persona(String nombre, String apellidos, String correoElectronico) {
+		super();
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.correoElectronico = correoElectronico;
+	}
+	public Persona() {
+		super();
+		this.nombre = null;
+		this.apellidos = null;
+		this.correoElectronico = null;
 	}
 	public String getNombre() {
 		return nombre;
@@ -19,31 +20,22 @@ public class Persona{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApePaterno() {
-		return apePaterno;
+	public String getApellidos() {
+		return apellidos;
 	}
-	public void setApePaterno(String apePaterno) {
-		this.apePaterno = apePaterno;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
-	public String getApeMaterno() {
-		return apeMaterno;
+	public String getCorreoElectronico() {
+		return correoElectronico;
 	}
-	public void setApeMaterno(String apeMaterno) {
-		this.apeMaterno = apeMaterno;
-	}
-	public int getDNI() {
-		return DNI;
-	}
-	public void setDNI(int dni) {
-		this.DNI = dni;
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
 	}
 	@Override
 	public String toString() {
-		return "Datos Personales Ingresados:\n"
-				+ "Nombre: " + this.nombre
-				+ "\nApellido Paterno: " + this.apePaterno
-				+ "\nApellido Materno: " + this.apeMaterno
-				+ "\nDNI: "+ this.DNI + "\n";
+		return " Nombre:" + nombre + ", Apellidos:" + apellidos + ", CorreoElectronico:" + correoElectronico;
 	}
-
+	
+	
 }
