@@ -2,13 +2,13 @@ import java.util.Scanner;
 
 public class historialCotizacion {
 	String correo;
-	ListLinked<String> historial;
+	OrderListLinked<String> historial;
 	Scanner entradaDato = new Scanner(System.in);
 	
 	public historialCotizacion() {
 		super();
 		this.correo = "";
-		historial = new ListLinked<String>();
+		historial = new OrderListLinked<String>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -24,9 +24,9 @@ public class historialCotizacion {
 		System.out.print("Ingrese su correo: ");
 		correo = entradaDato.nextLine();
 		if(historial.isEmptyList()) {
-			historial.insertFirst(correo);
+			historial.insert(correo);
 		} else {
-			historial.insertLast(correo);
+			historial.insert(correo);
 			System.out.println("El correo se ingreso correctamente");
 		}
 	}

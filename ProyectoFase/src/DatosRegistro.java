@@ -2,7 +2,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
-public class DatosRegistro extends Usuario{
+public class DatosRegistro {/*
 	JTextField DNI = new JTextField();
 	JTextField apPat= new JTextField();
 	JTextField apMat = new JTextField();
@@ -27,11 +27,9 @@ public class DatosRegistro extends Usuario{
 	 public String getConfir() {
 		return confir;
 	}
-
 	public void setConfir(String confir) {
 		this.confir = confir;
 	}
-
 	public void Registro() {
 		 int a = JOptionPane.showConfirmDialog(null,"Ingrese A continuacion los Datos Solicitados: ","¡Crea Tu Cuenta!",JOptionPane.OK_CANCEL_OPTION);
 		 int count = 0;
@@ -146,5 +144,5 @@ public class DatosRegistro extends Usuario{
 	public String toString() {
 		return super.toString(); 
 	}
-	 
+	 */
 }

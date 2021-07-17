@@ -9,6 +9,12 @@ public class ListLinked<T> implements TDAList<T> {
 		this.count = 0;
 	}
 	
+	public ListLinked(T x) {
+		Node<T> nuevo = new Node<T>(x);
+		this.first = nuevo;
+		this.count = 1;
+	}
+	
 	public boolean isEmptyList() {
 		return this.first == null;
 	}
@@ -32,6 +38,28 @@ public class ListLinked<T> implements TDAList<T> {
 			}
 		}
 		return -1;
+	}
+	
+	public T searchint (int i) {
+		Node<T> aux = this.first;
+		int j = 0;
+		do {
+			if(i==j) {
+				return aux.getData();
+			}
+			aux = aux.getNext();
+			j++;
+		}while(aux!=null);
+		return null;
+	}
+	
+	public T searchData (T data) {
+		Node<T> nodo = this.first;
+		while (nodo != null && !nodo.getData().equals(data))
+			nodo = nodo.getNext();
+		if(nodo != null)
+			return nodo.getData();
+		return null;
 	}
 	
 	public void insertLast(T x) {

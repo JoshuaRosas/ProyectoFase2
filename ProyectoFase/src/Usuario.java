@@ -1,11 +1,11 @@
-//IMPLEMENTADO POR JOSHUA ROSAS
-
 import java.util.Scanner;
 
-public class Usuario implements Comparable<Usuario> {
+public class Usuario extends Persona implements Comparable<Usuario> {
 	private String nombreU;
 	private String contraseña;
 	Hash<Usuario> aux;
+	private Persona usuario;
+	private ListLinked<CasaCambio> puesto;
 	Scanner entradaDatos = new Scanner(System.in);
 	
 	public Usuario(String nombreU, String contraseña) {
@@ -15,6 +15,13 @@ public class Usuario implements Comparable<Usuario> {
 	
 	public Usuario() {
 		aux = new Hash<Usuario>(30);
+	}
+	
+	public Usuario(Persona usuario, String contraseña, ListLinked<CasaCambio> puesto) {
+		super();
+		this.usuario =  usuario;
+		this.contraseña = contraseña;
+		this.puesto = puesto;
 	}
 	
 	public String getNombreU() {
@@ -45,7 +52,7 @@ public class Usuario implements Comparable<Usuario> {
 		System.out.print("Primer digito del DNI: ");
 		r1 = entradaDatos.nextInt();
 		Usuario usuario1 = new Usuario(n1, c1);
-		aux.insert(r1, usuario1);
+		aux.insertC(r1, usuario1);
 	}
 	
 	public void iniciarSesion() {
@@ -71,6 +78,9 @@ public class Usuario implements Comparable<Usuario> {
 		
 	}
 	
+	public void mostrarUs() {
+		System.out.println(aux);
+	}
 	@Override
 	public String toString() {
 		return "Datos de Registro Usuario:\n "+

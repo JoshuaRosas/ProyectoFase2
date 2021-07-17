@@ -67,14 +67,6 @@ public class Hash<E extends Comparable<E>> {
 					return -3;				//ya insertado
 				}
 			}
-			/*
-			if(table.get(dressHash).mark == 0) {
-				return dressHash;		//se encontro posicion vacia
-			}
-			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) {
-				return -2;				//ya insertado
-			}
-			*/
 			dressHash = (dressHash + 1) % m;
 		} while(dressHash != posInit);
 		return -1;
@@ -84,10 +76,10 @@ public class Hash<E extends Comparable<E>> {
 		int dressHash = functionHash(key);
 		dressHash = linearProbing(dressHash, key, 1);
 		if(dressHash == -1) {
-			System.out.println("Key table hash is full... ");
+			System.out.println("La tabla de datos esta completa");
 			return;
 		} else if(dressHash == -2) {
-			System.out.println("Key is duplicated");
+			System.out.println("Los datos de la casa de cambio ya existen");
 			return;
 		} else {
 			Element aux = new Element(1, new Register<E>(key, reg));
@@ -99,10 +91,10 @@ public class Hash<E extends Comparable<E>> {
 		int dressHash = functionHash(key);
 		int dressHash2 = cuadraticProbing(dressHash, key);
 		if(dressHash == -1) {
-			System.out.println("Key table hash is full... ");
+			System.out.println("La tabla de datos esta completa");
 			return;
 		} else if(dressHash == -2) {
-			System.out.println("Key is duplicated");
+			System.out.println("Los datos de la casa de cambio ya existen");
 			return;
 		} else if(dressHash != dressHash2) {
 			Element aux2 = new Element(1, new Register<E>(key, reg));
@@ -118,35 +110,26 @@ public class Hash<E extends Comparable<E>> {
 		int posInit = dressHash;
 		int tempo = linearProbing(dressHash, key, 2);
 		do {
-			/*
-			if(tempo == -3) {
-				if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) {
-					return table.get(dressHash).reg.value;
-				} else {
-					dressHash = (dressHash + 1) % m;
-				}
-			}
-			*/
 			
 			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key && tempo == -3) {
-				System.out.print("Se encontro el elemento: ");
+				System.out.print("Se encontro los datos exitosamente ");
 				return table.get(dressHash).reg.value;
 			} else {
 				dressHash = (dressHash + 1) % m;
 			}
 			
 		} while(dressHash != posInit);
-		System.out.print("No se encontro el elemento ");
+		System.out.print("No se encontraron los datos solicitados ");
 		return null;
 	}
-	//Metodo remove hecho por Joshua Rosas
+	
 	public E remove(int key) {
 		int dressHash = functionHash(key);
 		int posInit = dressHash;
 		int tempo = linearProbing(dressHash, key, 2);
 		do {
 			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key && tempo == -3) {
-				System.out.print("Se elimino el elemento: ");
+				System.out.print("Eliminacion exitosa ");
 				E ob = table.get(dressHash).reg.value;
 				table.set(dressHash, new Element(0,null));
 				return ob;
@@ -156,12 +139,9 @@ public class Hash<E extends Comparable<E>> {
 		} while(dressHash != posInit);
 		return null;
 	}
-	//Metodo por pliegue hecho por Joshua Rosas
+	
 	public int metPliegue(int key) {
-		//char ch[];
-		//ch = String.valueOf(key).toCharArray();
-		//ch = Integer.toChar(key);
-		//int kl = ch.length;
+		
 		String cad = String.valueOf(key);
 		char ch[] = String.valueOf(cad).toCharArray();
 		int sum = 0;
@@ -183,9 +163,7 @@ public class Hash<E extends Comparable<E>> {
 				return -2;				//ya insertado
 			}
 			while(table.get(dressHash).reg.getKey() == key) {
-				//i++;
-				//i = i + 1;
-				//int p = functionHash(key);
+				
 				dressHash = dressHash + (i*i);
 				dressHash = dressHash % m;
 				i++;
@@ -198,7 +176,7 @@ public class Hash<E extends Comparable<E>> {
 	
 	@Override
 	public String toString() {
-		String s = "D.Real\tD.Hash\tRegister\n";
+		String s = "Pos\tDigito del Ruc\tDatos\n";
 		int i = 0;
 		for(Element item : table) {
 			s += (i++) + " -->\t";

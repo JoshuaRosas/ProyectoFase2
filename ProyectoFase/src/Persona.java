@@ -1,49 +1,51 @@
-//IMPLEMENTADO POR GABRIEL LEVANO
 
 public class Persona{
+	private long RUC;
+	private String nombreapellidos;
+	private String correoElectronico;
+	public Persona(long RUC, String nombreapellidos, String correoElectronico) {
+		super();
+		this.RUC = RUC;
+		this.nombreapellidos = nombreapellidos;
+		this.correoElectronico = correoElectronico;
+	}
+	public Persona() {
+		super();
+		this.RUC = 0;
+		this.nombreapellidos = null;
+		this.correoElectronico = null;
+	}
 	
-	private String nombre;
-	private String apePaterno;
-	private String apeMaterno;
-	private int DNI;
-	
-	public Persona(){
-		this.nombre = "";
-		this.apePaterno = "";
-		this.apeMaterno = "";
-		this.DNI = 0;
+	public long getRUC() {
+		return RUC;
 	}
-	public String getNombre() {
-		return nombre;
+	public void setRUC(long vruc) {
+		RUC = vruc;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getNombreapellidos() {
+		return nombreapellidos;
 	}
-	public String getApePaterno() {
-		return apePaterno;
+	public void setNombreapellidos(String nombreapellidos) {
+		this.nombreapellidos = nombreapellidos;
 	}
-	public void setApePaterno(String apePaterno) {
-		this.apePaterno = apePaterno;
+	public String getCorreoElectronico() {
+		return correoElectronico;
 	}
-	public String getApeMaterno() {
-		return apeMaterno;
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
 	}
-	public void setApeMaterno(String apeMaterno) {
-		this.apeMaterno = apeMaterno;
-	}
-	public int getDNI() {
-		return DNI;
-	}
-	public void setDNI(int dni) {
-		this.DNI = dni;
+	public void clear() {
+		this.RUC = 0;
+		this.nombreapellidos = null;
+		this.correoElectronico = null;
 	}
 	@Override
 	public String toString() {
-		return "Datos Personales Ingresados:\n"
-				+ "Nombre: " + this.nombre
-				+ "\nApellido Paterno: " + this.apePaterno
-				+ "\nApellido Materno: " + this.apeMaterno
-				+ "\nDNI: "+ this.DNI + "\n";
+		return " RUC:" + RUC + ", Nombres Y Apellidos:" + nombreapellidos + ", CorreoElectronico:" + correoElectronico;
 	}
-
+	public int compareTo(Persona o) {
+		return this.correoElectronico.compareTo(o.correoElectronico);
+	}
+	
+	
 }

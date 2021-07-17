@@ -7,8 +7,8 @@ public class CasaCambio implements Comparable<CasaCambio> {
 	private String direccion;
 	private double precioVenta;
 	private double precioCompra;
-	//OrderListLinked <CasaCambio> aux2;
 	Hash<CasaCambio> aux2;
+	private BSTree<MonedasDeCambio> monedas;
 	Scanner entradaDatos = new Scanner(System.in);
 	
 	public CasaCambio(int ruc, String nombre, String direccion, double precioVenta, double precioCompra) {
@@ -17,6 +17,12 @@ public class CasaCambio implements Comparable<CasaCambio> {
 		this.direccion = direccion;
 		this.precioVenta = precioVenta;
 		this.precioCompra = precioCompra;
+	}
+	
+	public CasaCambio(String nombre, String direccion, BSTree<MonedasDeCambio> monedas) {
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.monedas = monedas;
 	}
 	
 	public int getRuc() {
@@ -63,6 +69,14 @@ public class CasaCambio implements Comparable<CasaCambio> {
 		this.precioCompra = precioCompra;
 	}
 	
+	public BSTree<MonedasDeCambio> getMonedas() {
+		return monedas;
+	}
+
+	public void setMonedas(BSTree<MonedasDeCambio> monedas) {
+		this.monedas = monedas;
+	}
+	
 	public void agregarCasa() {
 		int r1;
 		String n1;
@@ -93,6 +107,12 @@ public class CasaCambio implements Comparable<CasaCambio> {
 	
 	public void mostrarCasas() {
 		System.out.println(aux2);
+	}
+	
+	public void clearCasas() {
+		this.direccion = null;
+		this.monedas = null;
+		this.nombre = null;
 	}
 	
 	@Override
