@@ -24,11 +24,12 @@ public class Test {
 	
 	public static void main(String[] args) throws ItemDuplicated {
 		///////////////////////////////////////////////////////////////////////////////
-		Persona person = new Persona("NombreA","ApellidosA","NombreQ@Gmail");
+		Persona person = new Persona(456,"ApellidosA","NombreQ@Gmail");
 
 		BSTree<MonedasDeCambio> monedas = new BSTree<MonedasDeCambio>();
-		monedas.insert(new MonedasDeCambio("Soles",3.0,3.2));
-		monedas.insert(new MonedasDeCambio("Dolares",3.5,3.6));
+		MonedasDeCambio moneda = new MonedasDeCambio("Soles",3.0,2.0);
+		monedas.insert(moneda);
+		//monedas.insert(new MonedasDeCambio("Dolares",3.5,3.6));
 		
 		CasaCambio casas = new CasaCambio("CasaA","DireccionABC",monedas);
 		ListLinked<CasaCambio> casastotales = new ListLinked<CasaCambio>();
@@ -36,11 +37,17 @@ public class Test {
 		Usuario userna = new Usuario(person,"123",casastotales);
 		
 		Registro reg = new Registro();
+	//	System.out.println("Antes\n"+userna);
+		reg.agregarRegistro(userna);
 		
 		System.out.println(reg);
-		reg.agregarRegistro(userna);
-		System.out.println(reg);
+		//System.out.println(reg.buscarRegistro(userna));
+		long a = Long.parseLong("12345678945");
 		//////////////////////////////////////////////////////////////////////////////
+		Usuario datosDelUsuario = new Usuario(); //Falta casas
+		Persona datosDePersona = new Persona(); //Listo
+		ListLinked<CasaCambio> ListacasasDelUsuario = new ListLinked<CasaCambio>();
+		CasaCambio casasDelUsuaio = new CasaCambio();		
 		
 		//////////////////////////////////////////////////////////////////////////////
 		JFrame frameMenuInicio;
@@ -53,9 +60,9 @@ public class Test {
 		JTextField Contrasenia;
 		
 		JFrame frameRegistro2;
-		JTextField textField;
-		JTextField textField_1;
-		JTextField textField_2;
+		JTextField ingresoDeNombreRegistro2;
+		JTextField ingresoDeDireccionRegistro2;
+		JTextField intIngresoDeMonedas;
 		JTextField PrecioVenta1;
 		JTextField PrecioCompra1;
 		JTextField PrecioVenta2;
@@ -69,7 +76,6 @@ public class Test {
 		JTextField PrecioVenta6;
 		JTextField PrecioCompra6;
 		//int Vnumcasas;
-		
 		
 		frameMenuInicio = new JFrame();
 		frameMenuInicio.setVisible(true);
@@ -147,7 +153,7 @@ public class Test {
 		panelDeCabeceraDeRegistro1.setBounds(0, 0, 886, 88);
 		frameregistro.getContentPane().add(panelDeCabeceraDeRegistro1);
 		
-		JLabel lblIngresarNombreRegistro1 = new JLabel("Ingrese Nombre");
+		JLabel lblIngresarNombreRegistro1 = new JLabel("Ingrese Nro RUC");
 		lblIngresarNombreRegistro1.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
 		lblIngresarNombreRegistro1.setBounds(30, 138, 133, 28);
 		frameregistro.getContentPane().add(lblIngresarNombreRegistro1);
@@ -162,9 +168,9 @@ public class Test {
 		Apellidos.setBounds(30, 233, 268, 28);
 		frameregistro.getContentPane().add(Apellidos);
 		
-		JLabel lblIngresoApellidos = new JLabel("Ingrese Apellidos");
+		JLabel lblIngresoApellidos = new JLabel("Ingrese Nombres Y Apellidos");
 		lblIngresoApellidos.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
-		lblIngresoApellidos.setBounds(30, 205, 133, 28);
+		lblIngresoApellidos.setBounds(30, 205, 200, 28);
 		frameregistro.getContentPane().add(lblIngresoApellidos);
 		
 		CorreoElectronico = new JTextField();
@@ -205,15 +211,14 @@ public class Test {
 		JButton botonSiguienteRegistro1 = new JButton("Siguiente");
 		botonSiguienteRegistro1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String Vnombre = validarTexto(NombrePer.getText());
-				String Vapellidos = validarTexto(Apellidos.getText());
+				long Vruc = validarRUC(NombrePer.getText());
+				String VnombreApellidos = validarTexto(Apellidos.getText());
 				String Vcorreo = isValid(CorreoElectronico.getText());
 				String Vcontrasenia = validarTextoNumeros(Contrasenia.getText());
 				ListLinked<String> validar = new ListLinked<String>();
 				validar.insertFirst(Vcontrasenia);
 				validar.insertFirst(Vcorreo);
-				validar.insertFirst(Vapellidos);
-				validar.insertFirst(Vnombre);
+				validar.insertFirst(VnombreApellidos);
 				int i = 0;
 				String dowh = null;
 				boolean ver = true;
@@ -226,21 +231,25 @@ public class Test {
 							ver = false;
 						}
 						if(i == 1) {
-							JOptionPane.showMessageDialog(null, "Apellidos Invalidos");
-							ver = false;
-						}
-						if(i == 2) {
 							JOptionPane.showMessageDialog(null, "Correo Invalido");
 							ver = false;
 						}
-						if(i == 3) {
+						if(i == 2) {
 							JOptionPane.showMessageDialog(null, "Contraseña Invalida");
 							ver = false;
 						}
 					}
 					i++;
 				}while(i<validar.length() && ver == true);
-				if(ver == true) {
+				if (Vruc == -1 && ver == true) {
+					JOptionPane.showMessageDialog(null, "RUC Invalido");
+				}
+				if(ver == true && Vruc != -1) {
+					datosDePersona.setRUC(Vruc);
+					datosDePersona.setNombreapellidos(VnombreApellidos);
+					datosDePersona.setCorreoElectronico(Vcorreo);
+					datosDelUsuario.setContraseña(Vcontrasenia);
+					System.out.println(datosDePersona.toString());
 					frameregistro.setVisible(false);
 					frameRegistro2.setVisible(true);
 					frameregistro.dispose();
@@ -269,7 +278,7 @@ public class Test {
 		frameregistro.setMinimumSize(new Dimension(750, 450));
 		frameregistro.setBounds(100, 100, 450, 300);
 		frameregistro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		frameRegistro2.getContentPane().setBackground(Color.WHITE);
 		frameRegistro2.setMinimumSize(new Dimension(750, 450));
@@ -277,66 +286,68 @@ public class Test {
 		frameRegistro2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameRegistro2.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\gaboc\\Downloads\\morali (4).png"));
-		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setBounds(10, 0, 123, 88);
-		frameRegistro2.getContentPane().add(lblNewLabel);
+		JLabel iconoRegistro2 = new JLabel("");
+		iconoRegistro2.setIcon(new ImageIcon("C:\\Users\\gaboc\\Downloads\\morali (4).png"));
+		iconoRegistro2.setHorizontalTextPosition(SwingConstants.CENTER);
+		iconoRegistro2.setHorizontalAlignment(SwingConstants.CENTER);
+		iconoRegistro2.setBackground(Color.WHITE);
+		iconoRegistro2.setBounds(10, 0, 123, 88);
+		frameRegistro2.getContentPane().add(iconoRegistro2);
 		
 		JPanel panelDeRegistro2 = new JPanel();
 		panelDeRegistro2.setBackground(Color.DARK_GRAY);
 		panelDeRegistro2.setBounds(0, 0, 886, 88);
 		frameRegistro2.getContentPane().add(panelDeRegistro2);
 		
-		JLabel lblNewLabel_1 = new JLabel("Ingrese Nombre");
-		lblNewLabel_1.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
-		lblNewLabel_1.setBounds(20, 127, 133, 28);
-		frameRegistro2.getContentPane().add(lblNewLabel_1);
+		JLabel lblIngresoNombreRegistro2 = new JLabel("Ingrese Nombre");
+		lblIngresoNombreRegistro2.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
+		lblIngresoNombreRegistro2.setBounds(20, 127, 133, 28);
+		frameRegistro2.getContentPane().add(lblIngresoNombreRegistro2);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Ingreso de Casas De Cambio:");
-		lblNewLabel_1_2.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
-		lblNewLabel_1_2.setBounds(20, 99, 214, 28);
-		frameRegistro2.getContentPane().add(lblNewLabel_1_2);
+		JLabel lblIngresoDeCasasDeCambioRegistro2 = new JLabel("Ingreso de Casas De Cambio:");
+		lblIngresoDeCasasDeCambioRegistro2.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
+		lblIngresoDeCasasDeCambioRegistro2.setBounds(20, 99, 214, 28);
+		frameRegistro2.getContentPane().add(lblIngresoDeCasasDeCambioRegistro2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(20, 155, 268, 28);
-		frameRegistro2.getContentPane().add(textField);
+		ingresoDeNombreRegistro2 = new JTextField();
+		ingresoDeNombreRegistro2.setColumns(10);
+		ingresoDeNombreRegistro2.setBounds(20, 155, 268, 28);
+		frameRegistro2.getContentPane().add(ingresoDeNombreRegistro2);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Ingrese Direccion");
-		lblNewLabel_1_1.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
-		lblNewLabel_1_1.setBounds(20, 194, 133, 28);
-		frameRegistro2.getContentPane().add(lblNewLabel_1_1);
+		JLabel lblIngresoDireccionRegistro2 = new JLabel("Ingrese Direccion");
+		lblIngresoDireccionRegistro2.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
+		lblIngresoDireccionRegistro2.setBounds(20, 194, 133, 28);
+		frameRegistro2.getContentPane().add(lblIngresoDireccionRegistro2);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(20, 222, 268, 28);
-		frameRegistro2.getContentPane().add(textField_1);
+		ingresoDeDireccionRegistro2 = new JTextField();
+		ingresoDeDireccionRegistro2.setColumns(10);
+		ingresoDeDireccionRegistro2.setBounds(20, 222, 268, 28);
+		frameRegistro2.getContentPane().add(ingresoDeDireccionRegistro2);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Ingrese Cantidad de Monedas");
-		lblNewLabel_1_1_1.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
-		lblNewLabel_1_1_1.setBounds(20, 262, 214, 28);
-		frameRegistro2.getContentPane().add(lblNewLabel_1_1_1);
+		JLabel lblIngresoCantidadDeMonedas = new JLabel("Ingrese Cantidad de Monedas");
+		lblIngresoCantidadDeMonedas.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
+		lblIngresoCantidadDeMonedas.setBounds(20, 262, 214, 28);
+		frameRegistro2.getContentPane().add(lblIngresoCantidadDeMonedas);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(20, 290, 50, 28);
-		frameRegistro2.getContentPane().add(textField_2);
+		intIngresoDeMonedas = new JTextField();
+		intIngresoDeMonedas.setColumns(10);
+		intIngresoDeMonedas.setBounds(20, 290, 50, 28);
+		frameRegistro2.getContentPane().add(intIngresoDeMonedas);
 		
-		JButton btnNewButton_2_1 = new JButton("Cancelar");
-		btnNewButton_2_1.addMouseListener(new MouseAdapter() {
+		JButton botonAceptarCantidadCasas = new JButton("Cancelar");
+		botonAceptarCantidadCasas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JOptionPane.showConfirmDialog(null,"¿Esta Seguro de Cancelar El Registro?","Mensaje De Canfirmacion", JOptionPane.OK_OPTION);
+				frameRegistro2.setVisible(false);
+				frameMenuInicio.setVisible(true);
 			}
 		});
-		btnNewButton_2_1.setForeground(Color.WHITE);
-		btnNewButton_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_2_1.setBackground(SystemColor.textHighlight);
-		btnNewButton_2_1.setBounds(474, 364, 103, 36);
-		frameRegistro2.getContentPane().add(btnNewButton_2_1);
+		botonAceptarCantidadCasas.setForeground(Color.WHITE);
+		botonAceptarCantidadCasas.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		botonAceptarCantidadCasas.setBackground(SystemColor.textHighlight);
+		botonAceptarCantidadCasas.setBounds(474, 364, 103, 36);
+		frameRegistro2.getContentPane().add(botonAceptarCantidadCasas);
 		
 		JComboBox<String> MonedaSeleccion1 = new JComboBox<String>();
 		MonedaSeleccion1.setForeground(SystemColor.textHighlight);
@@ -346,15 +357,15 @@ public class Test {
 		MonedaSeleccion1.setBounds(333, 133, 155, 22);
 		frameRegistro2.getContentPane().add(MonedaSeleccion1);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Monedas:");
-		lblNewLabel_1_1_1_1.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
-		lblNewLabel_1_1_1_1.setBounds(333, 99, 83, 28);
-		frameRegistro2.getContentPane().add(lblNewLabel_1_1_1_1);
+		JLabel lblMonedas = new JLabel("Monedas:");
+		lblMonedas.setFont(new Font("Square721 Cn BT", Font.BOLD, 17));
+		lblMonedas.setBounds(333, 99, 83, 28);
+		frameRegistro2.getContentPane().add(lblMonedas);
 		
-		JPanel panel_11 = new JPanel();
-		panel_11.setBackground(Color.DARK_GRAY);
-		panel_11.setBounds(313, 99, 10, 256);
-		frameRegistro2.getContentPane().add(panel_11);
+		JPanel panelDeRegistro2_2 = new JPanel();
+		panelDeRegistro2_2.setBackground(Color.DARK_GRAY);
+		panelDeRegistro2_2.setBounds(313, 99, 10, 256);
+		frameRegistro2.getContentPane().add(panelDeRegistro2_2);
 		
 		JLabel TextoVenta1 = new JLabel("Venta:");
 		TextoVenta1.setVisible(false);
@@ -549,7 +560,181 @@ public class Test {
 		btnNewButton_2_1_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showConfirmDialog(null,"Confirme Su Registro: ","Confirmar Registro", JOptionPane.OK_OPTION);
+				String VnombreCasa = validarTexto(ingresoDeNombreRegistro2.getText());
+				String VdireccionCasa = ingresoDeDireccionRegistro2.getText();
+				if(VnombreCasa == "Error") {
+					JOptionPane.showMessageDialog(null, "Nombre De La Casa Invalido");
+				}
+				if (VdireccionCasa.length() < 15) {
+					JOptionPane.showMessageDialog(null, "Direccion De Casa Invalido");
+				}
+				if (VnombreCasa != "Error" && VdireccionCasa.length()> 14) {
+	
+					ListLinked<String> Vmonedas = new ListLinked<String>();
+					Vmonedas.insertFirst("BOB - Boliviano");
+					Vmonedas.insertFirst("AUD - Dólar australiano");
+					Vmonedas.insertFirst("CAD - Dólar canadiense");
+					Vmonedas.insertFirst("USD - Dólar estadounidense");
+					Vmonedas.insertFirst("HKD - Dólar hongkonés");
+					Vmonedas.insertFirst("NZD - Dólar neozelandés");
+					Vmonedas.insertFirst("EUR - Euro");
+					Vmonedas.insertFirst("CHF - Franco suizo");
+					Vmonedas.insertFirst("GBP - Libra esterlina");
+					Vmonedas.insertFirst("ARS - Peso Argentino");
+					Vmonedas.insertFirst("CLP - Peso Chileno");
+					Vmonedas.insertFirst("COP - Peso Colombiano");
+					Vmonedas.insertFirst("MXN - Peso Mexicano");
+					Vmonedas.insertFirst("BRL - Real Brasileño");
+					Vmonedas.insertFirst("CNH - Renminbi chino");
+					Vmonedas.insertFirst("JPY - Yen japonés");
+					ListLinked<String> todosLosComboBox = new ListLinked<String>();
+					todosLosComboBox.insertFirst(MonedaSeleccion6.getSelectedItem().toString());
+					todosLosComboBox.insertFirst(MonedaSeleccion5.getSelectedItem().toString());
+					todosLosComboBox.insertFirst(MonedaSeleccion4.getSelectedItem().toString());
+					todosLosComboBox.insertFirst(MonedaSeleccion3.getSelectedItem().toString());
+					todosLosComboBox.insertFirst(MonedaSeleccion2.getSelectedItem().toString());
+					todosLosComboBox.insertFirst(MonedaSeleccion1.getSelectedItem().toString());
+					int numCasas;
+					numCasas = validarNumeros(intIngresoDeMonedas.getText());
+					System.out.println(numCasas);
+					boolean seguir = true;
+					int indiceParaValidar = 0;
+					do {
+						if(todosLosComboBox.searchint(indiceParaValidar) == "Seleccion") {
+							JOptionPane.showMessageDialog(null, "No selecciono 1 o mas monedas");
+							seguir = false;
+						}
+						if(Vmonedas.searchData(todosLosComboBox.searchint(indiceParaValidar)) == null && seguir == true) {
+							JOptionPane.showMessageDialog(null, "Existe Monedas Seleccionadas repetidas");
+							seguir = false;
+						}
+						if(Vmonedas.searchData(todosLosComboBox.searchint(indiceParaValidar)) != null && seguir == true) {
+							Vmonedas.remove(Vmonedas.searchData(todosLosComboBox.searchint(indiceParaValidar)));
+						}
+						indiceParaValidar++;
+					}while(numCasas > indiceParaValidar && seguir == true);
+					if (seguir == true) {
+						indiceParaValidar = 0;
+						ListLinked<String> precioscompra = new ListLinked<String>();
+						precioscompra.insertFirst(PrecioCompra6.getText());
+						precioscompra.insertFirst(PrecioCompra5.getText());
+						precioscompra.insertFirst(PrecioCompra4.getText());
+						precioscompra.insertFirst(PrecioCompra3.getText());
+						precioscompra.insertFirst(PrecioCompra2.getText());
+						precioscompra.insertFirst(PrecioCompra1.getText());
+						System.out.println(precioscompra);
+						boolean validardouble = true;
+						do {
+							validardouble = isDouble(precioscompra.searchint(indiceParaValidar));
+							System.out.println(validardouble);
+							if (validardouble == false) {
+								JOptionPane.showMessageDialog(null, "Datos De Compra No Validos");
+								seguir = false;
+							}
+							indiceParaValidar++;
+						}while(numCasas > indiceParaValidar && seguir == true);
+						if (seguir == true) {
+							ListLinked<String> preciosventa = new ListLinked<String>();
+							preciosventa.insertFirst(PrecioVenta6.getText());
+							preciosventa.insertFirst(PrecioVenta5.getText());
+							preciosventa.insertFirst(PrecioVenta4.getText());
+							preciosventa.insertFirst(PrecioVenta3.getText());
+							preciosventa.insertFirst(PrecioVenta2.getText());
+							preciosventa.insertFirst(PrecioVenta1.getText());
+							
+							indiceParaValidar = 0;
+							do {
+								validardouble = isDouble(preciosventa.searchint(indiceParaValidar));  
+								if (validardouble == false) {
+									JOptionPane.showMessageDialog(null, "Datos De Venta No Validos");
+									seguir = false;
+								}
+								indiceParaValidar++;
+							}while(numCasas > indiceParaValidar && seguir == true);
+							if (seguir == true) {
+								int respuesta;
+								respuesta = JOptionPane.showConfirmDialog(null,"Confirme Su Registro: ","Confirmar Registro", JOptionPane.OK_OPTION);
+								if(respuesta == 0) {
+									boolean validarNoRepetidos = true;
+									BSTree<MonedasDeCambio> monedasDelUsuario = new BSTree<MonedasDeCambio>();
+									switch(numCasas) {
+									case 1:
+										try {
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion1.getSelectedItem().toString(),Double.parseDouble(PrecioVenta1.getText()),Double.parseDouble(PrecioCompra1.getText())));
+										} catch (ItemDuplicated e1) {
+											e1.printStackTrace();
+											validarNoRepetidos = false;
+										}
+										break;
+									case 2:
+										try {
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion1.getSelectedItem().toString(),Double.parseDouble(PrecioVenta1.getText()),Double.parseDouble(PrecioCompra1.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion2.getSelectedItem().toString(),Double.parseDouble(PrecioVenta2.getText()),Double.parseDouble(PrecioCompra2.getText())));
+										} catch (ItemDuplicated e1) {
+											e1.printStackTrace();
+											validarNoRepetidos = false;
+										}
+										break;
+									case 3:
+										try {
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion1.getSelectedItem().toString(),Double.parseDouble(PrecioVenta1.getText()),Double.parseDouble(PrecioCompra1.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion2.getSelectedItem().toString(),Double.parseDouble(PrecioVenta2.getText()),Double.parseDouble(PrecioCompra2.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion3.getSelectedItem().toString(),Double.parseDouble(PrecioVenta3.getText()),Double.parseDouble(PrecioCompra3.getText())));
+										} catch (ItemDuplicated e1) {
+											e1.printStackTrace();
+											validarNoRepetidos = false;
+										}
+										break;
+									case 4:
+										try {
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion1.getSelectedItem().toString(),Double.parseDouble(PrecioVenta1.getText()),Double.parseDouble(PrecioCompra1.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion2.getSelectedItem().toString(),Double.parseDouble(PrecioVenta2.getText()),Double.parseDouble(PrecioCompra2.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion3.getSelectedItem().toString(),Double.parseDouble(PrecioVenta3.getText()),Double.parseDouble(PrecioCompra3.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion4.getSelectedItem().toString(),Double.parseDouble(PrecioVenta4.getText()),Double.parseDouble(PrecioCompra4.getText())));
+										} catch (ItemDuplicated e1) {
+											e1.printStackTrace();
+											validarNoRepetidos = false;
+										}
+										break;
+									case 5:
+										try {
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion1.getSelectedItem().toString(),Double.parseDouble(PrecioVenta1.getText()),Double.parseDouble(PrecioCompra1.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion2.getSelectedItem().toString(),Double.parseDouble(PrecioVenta2.getText()),Double.parseDouble(PrecioCompra2.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion3.getSelectedItem().toString(),Double.parseDouble(PrecioVenta3.getText()),Double.parseDouble(PrecioCompra3.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion4.getSelectedItem().toString(),Double.parseDouble(PrecioVenta4.getText()),Double.parseDouble(PrecioCompra4.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion5.getSelectedItem().toString(),Double.parseDouble(PrecioVenta5.getText()),Double.parseDouble(PrecioCompra5.getText())));
+										} catch (ItemDuplicated e1) {
+											e1.printStackTrace();
+											validarNoRepetidos = false;
+										}
+										break;
+									case 6:
+										try {
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion1.getSelectedItem().toString(),Double.parseDouble(PrecioVenta1.getText()),Double.parseDouble(PrecioCompra1.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion2.getSelectedItem().toString(),Double.parseDouble(PrecioVenta2.getText()),Double.parseDouble(PrecioCompra2.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion3.getSelectedItem().toString(),Double.parseDouble(PrecioVenta3.getText()),Double.parseDouble(PrecioCompra3.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion4.getSelectedItem().toString(),Double.parseDouble(PrecioVenta4.getText()),Double.parseDouble(PrecioCompra4.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion5.getSelectedItem().toString(),Double.parseDouble(PrecioVenta5.getText()),Double.parseDouble(PrecioCompra5.getText())));
+											monedasDelUsuario.insert(new MonedasDeCambio(MonedaSeleccion6.getSelectedItem().toString(),Double.parseDouble(PrecioVenta6.getText()),Double.parseDouble(PrecioCompra6.getText())));
+										} catch (ItemDuplicated e1) {
+											e1.printStackTrace();
+											validarNoRepetidos = false;
+										}
+										break;	
+									}
+									reg.agregarRegistro(new Usuario(new Persona(datosDePersona.getRUC(),datosDePersona.getNombreapellidos(),datosDePersona.getCorreoElectronico()), datosDelUsuario.getContraseña(),new ListLinked<CasaCambio>(new CasaCambio(VnombreCasa,VdireccionCasa, monedasDelUsuario))));
+									System.out.println(reg);
+									
+									frameMenuInicio.setVisible(true);
+									frameRegistro2.setVisible(false);
+									numCasas = 0;
+									ListacasasDelUsuario.destroyList();
+									casasDelUsuaio.clearCasas();
+								}
+							}
+						}
+					}
+				}
 			}
 		});
 		
@@ -564,7 +749,7 @@ public class Test {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int Vnumcasas;
-				Vnumcasas = validarNumeros(textField_2.getText());
+				Vnumcasas = validarNumeros(intIngresoDeMonedas.getText());
 				if(Vnumcasas == -1) {
 					JOptionPane.showMessageDialog(null, "Numero De Casas Ingresado Invalido");
 				}else if(Vnumcasas == -2) {
@@ -831,7 +1016,7 @@ public class Test {
 		frameRegistro2.getContentPane().add(btnNewButton_2_1_3);
 		
 		
-		
+		System.out.println("aaa"+ datosDePersona);
 	}
 	public static String validarTexto(String Campo){
 		if (Campo.length()<1) {
@@ -873,19 +1058,46 @@ public class Test {
 				return -1;
 			}
 		}
-		int ret = Integer.parseInt(Campo);
-		if(ret < 1) {
+		int ret = Integer.parseInt(0+Campo);
+		if(charArray.length< 1) {
 			return -1;
-		}else if(ret > 6) {
-			return -2;
 		}
 		return ret;
 	}
-	static String isValid(String email) {
+	public static long validarRUC(String Campo){
+		char[] charArray = Campo.toCharArray();
+		char ch2;
+		for (int i = 0; i<charArray.length; i++) {
+			ch2 = charArray[i];
+			if(!(ch2 >= 48 && ch2 <= 57)) { //Validacion ASCII para solo numeros entre 0 y 9
+				return -1;
+			}
+		}
+		long ret = Long.parseLong(Campo);
+		if(charArray.length < 1) {
+			return -1;
+		}else if(charArray.length <= 10 || charArray.length >= 12) {
+			return -1;
+		}
+		return ret;
+	}
+	public static String isValid(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		boolean a = email.matches(regex);
 		if (a  == true)
 			return email;
 		return "Error";
 	}
+	public static boolean isDouble(String str) {
+	    try {
+	    	double x = Double.parseDouble(str);
+	        if (x == (int) x)
+	            return false;
+	        return true;
+	    }
+	    catch(NumberFormatException e) {
+	        return false;
+	    }
+
+	} 
 }

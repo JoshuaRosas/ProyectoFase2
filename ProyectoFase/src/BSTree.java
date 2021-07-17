@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -27,7 +28,9 @@ public class BSTree<E extends Comparable<E>> {
 		this.count = 0;
 		this.path = 0;
 		}
-	
+	public void clear() {
+		this.root = null;
+	}
 	public boolean isEmpty() {
 		return this.root == null;
 		}
@@ -219,8 +222,11 @@ public class BSTree<E extends Comparable<E>> {
 	
 	
 	public String toString() {
-
+		String str = "";
 		inOrden(this.root);
+		/*for ( int i = 0; i<a.size();i++) {
+			str += a.get(i).toString();
+		}*/
 		return  a.toString();
 	}
 	/*

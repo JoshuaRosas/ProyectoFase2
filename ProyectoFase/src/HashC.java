@@ -50,48 +50,30 @@ public class HashC<E extends Comparable<E>> {
 	private int functionHash(int key) {
 		return key % m;
 	}
-	
-	private int linearProbing(int dressHash, int key, int tp) {
-		int posInit = dressHash;
-		do {
-			if(tp == 1) {
-				if(table.get(dressHash).mark == 0) {
-					return dressHash;		//se encontro posicion vacia
-				}
-				if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) {
-					return -2;				//ya insertado
-				}
-			}
-			if(tp == 2) {
-				if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) {
-					return -3;				//ya insertado
-				}
-			}
-			/*
-			if(table.get(dressHash).mark == 0) {
-				return dressHash;		//se encontro posicion vacia
-			}
-			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) {
-				return -2;				//ya insertado
-			}
-			*/
-			dressHash = (dressHash + 1) % m;
-		} while(dressHash != posInit);
-		return -1;
+	private int functionHash(long key) {
+		return (int) (key % m);
+	}
+	private int linearProbing(int dressHash, int key) {
+		int posInit = dressHash;								//Posicion inicial para recorrer es POSINIT = DRESSHASH
+		do {																				//////////		Inicio de Bucle
+			if (table.get(dressHash).mark == 0)												// Si la direccion hash DRESSHASH esta vacia
+				return dressHash;															//  se retorna la posicion
+			if (table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key)	// Si la direccion hash DRESSHASH esta ocupada y KEY de la posicion es igual a KEY enviada
+				return -1;																	//  se retorna -1
+			dressHash = (dressHash + 1) % m;												// La direccion hash DRESSHASH ahora es = (DRESSHASH + 1) MODULO Tamaño de la tabla
+		} while (dressHash != posInit);														/////////		El Bucle seguira  siempre y cuando DRESSHASH sea diferente a la posicion inicial POSINIT 
+		return -1;												//Se retorna -1 si se sale del bucle
 	}
 	
 	public void insert(int key, E reg) {
-		int dressHash = functionHash(key);
-		dressHash = linearProbing(dressHash, key, 1);
-		if(dressHash == -1) {
-			System.out.println("Key table hash is full... ");
-			return;
-		} else if(dressHash == -2) {
-			System.out.println("Key is duplicated");
-			return;
-		} else {
-			Element aux = new Element(1, new Register<E>(key, reg));
-			table.set(dressHash, aux);
+		int dressHash = functionHash(key);						
+		dressHash = linearProbing(dressHash, key);				
+		if (dressHash == -1) {										
+			System.out.println("Key table hash is full or key is duplicated....");	
+		}
+		else {														
+			Element aux = new Element(1,new Register<E>(key,reg));					
+			table.set(dressHash, aux);												
 		}
 	}
 	//Metodo de insercion para la prueba Cuadratica
@@ -113,49 +95,34 @@ public class HashC<E extends Comparable<E>> {
 		}
 	}
 	
-	public E search(int key) {
+	public E search(long key) {
 		int dressHash = functionHash(key);
 		int posInit = dressHash;
-		int tempo = linearProbing(dressHash, key, 2);
 		do {
-			/*
-			if(tempo == -3) {
-				if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) {
-					return table.get(dressHash).reg.value;
-				} else {
-					dressHash = (dressHash + 1) % m;
-				}
-			}
-			*/
-			
-			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key && tempo == -3) {
-				System.out.print("Se encontro el elemento: ");
+			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key) 
 				return table.get(dressHash).reg.value;
-			} else {
-				dressHash = (dressHash + 1) % m;
-			}
-			
-		} while(dressHash != posInit);
-		System.out.print("No se encontro el elemento ");
+			dressHash = (dressHash + 1) % m;
+		}while(dressHash != posInit);
 		return null;
 	}
-	//Metodo remove hecho por Joshua Rosas
-	public E remove(int key) {
-		int dressHash = functionHash(key);
-		int posInit = dressHash;
-		int tempo = linearProbing(dressHash, key, 2);
-		do {
-			if(table.get(dressHash).mark == 1 && table.get(dressHash).reg.getKey() == key && tempo == -3) {
-				System.out.print("Se elimino el elemento: ");
-				E ob = table.get(dressHash).reg.value;
-				table.set(dressHash, new Element(0,null));
-				return ob;
-			} else {
-				dressHash = (dressHash + 1) % m;
-			}
-		} while(dressHash != posInit);
-		return null;
-	}
+
+	//Metodo remove
+	public int delete (int key) {					
+		int direc = functionHash(key);										//DIREC toma el valor del = MODULO (KEY % M)
+		int posInit = direc;												//POSINIT es = DIREC
+		do {					
+			if(table.get(direc).reg != null){																		//////		Inicio de Bucle		
+				if(table.get(direc).mark == 1 && table.get(direc).reg.getKey() == key) {							// Si la direccion hash DIREC esta ocupada y KEY de la posicion es igual a KEY enviada
+					table.get(direc).mark = 0;																		//  se crea ELEMENT con MARK 0 y NULL																	
+					System.out.println("¡Llave :"+key+" eliminada | D.Real: "+ posInit +" | D.Hash "+direc+"!\n");	//  se envia mensaje de eliminacion
+					return direc;																					//  se retorna la direccion hash DIREC
+				}
+			}//  
+			direc = functionHash(direc + 1);																	// La direccion hash DIREC ahora es = (DIREC + 1) MODULO Tamaño de la tabla
+		}while (direc != posInit);																				/////		Bucle Finaliza si DIREC y POSINIT son iguales
+		System.out.println("La llave: "+ key +" no existe...\n");			// Se da mensaje que llave no existe
+		return -1;															// Se retorna -1 dado que no existe
+	}	
 	//Metodo por pliegue hecho por Joshua Rosas
 	public int metPliegue(int key) {
 		//char ch[];

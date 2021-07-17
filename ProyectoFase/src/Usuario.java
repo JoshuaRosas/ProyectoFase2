@@ -38,8 +38,7 @@ public class Usuario implements Comparable<Usuario>{
 
 	@Override
 	public int compareTo(Usuario o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.usuario.compareTo(o.usuario);
 	}
 	
 }

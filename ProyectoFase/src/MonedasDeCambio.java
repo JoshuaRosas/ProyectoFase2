@@ -5,14 +5,15 @@ public class MonedasDeCambio implements Comparable <MonedasDeCambio>{
 	private double precioCompra;
 	
 	public MonedasDeCambio(String moneda, double precioVenta, double precioCompra) {
-		super();
-		Moneda = moneda;
+		this.Moneda = moneda;
 		this.precioVenta = precioVenta;
 		this.precioCompra = precioCompra;
 	}
 	
 	public MonedasDeCambio() {
-		super();
+		this.Moneda = null;
+		this.precioVenta = 0;
+		this.precioCompra = 0;
 	}
 	
 	public String getMoneda() {
@@ -38,17 +39,14 @@ public class MonedasDeCambio implements Comparable <MonedasDeCambio>{
 	public void setPrecioCompra(double precioCompra) {
 		this.precioCompra = precioCompra;
 	}
-	
-	
-	
 	@Override
 	public String toString() {
-		return "\n\t\t\tMoneda: " + Moneda + ", precioVenta=" + precioVenta + ", precioCompra=" + precioCompra+ "\n\t\t\t\t     ";
+		return "\n\t\t\tMoneda: " + Moneda + ", precioVenta=" + precioVenta + ", precioCompra=" + precioCompra;
 	}
 
 	@Override
 	public int compareTo(MonedasDeCambio o) {
-		return this.Moneda.compareTo(o.Moneda);
+		return 0;//this.Moneda.compareTo(o.Moneda);
 	}
 
 	

@@ -1,30 +1,31 @@
 public class Persona{
-	private String nombre;
-	private String apellidos;
+	private long RUC;
+	private String nombreapellidos;
 	private String correoElectronico;
-	public Persona(String nombre, String apellidos, String correoElectronico) {
+	public Persona(long RUC, String nombreapellidos, String correoElectronico) {
 		super();
-		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this.RUC = RUC;
+		this.nombreapellidos = nombreapellidos;
 		this.correoElectronico = correoElectronico;
 	}
 	public Persona() {
 		super();
-		this.nombre = null;
-		this.apellidos = null;
+		this.RUC = 0;
+		this.nombreapellidos = null;
 		this.correoElectronico = null;
 	}
-	public String getNombre() {
-		return nombre;
+	
+	public long getRUC() {
+		return RUC;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setRUC(long vruc) {
+		RUC = vruc;
 	}
-	public String getApellidos() {
-		return apellidos;
+	public String getNombreapellidos() {
+		return nombreapellidos;
 	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setNombreapellidos(String nombreapellidos) {
+		this.nombreapellidos = nombreapellidos;
 	}
 	public String getCorreoElectronico() {
 		return correoElectronico;
@@ -32,9 +33,17 @@ public class Persona{
 	public void setCorreoElectronico(String correoElectronico) {
 		this.correoElectronico = correoElectronico;
 	}
+	public void clear() {
+		this.RUC = 0;
+		this.nombreapellidos = null;
+		this.correoElectronico = null;
+	}
 	@Override
 	public String toString() {
-		return " Nombre:" + nombre + ", Apellidos:" + apellidos + ", CorreoElectronico:" + correoElectronico;
+		return " RUC:" + RUC + ", Nombres Y Apellidos:" + nombreapellidos + ", CorreoElectronico:" + correoElectronico;
+	}
+	public int compareTo(Persona o) {
+		return this.correoElectronico.compareTo(o.correoElectronico);
 	}
 	
 	

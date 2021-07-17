@@ -7,14 +7,12 @@ public class CasaCambio implements Comparable<CasaCambio> {
 	private BSTree<MonedasDeCambio> monedas;
 	
 	public CasaCambio(String nombre, String direccion, BSTree<MonedasDeCambio> monedas) {
-		super();
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.monedas = monedas;
 	}
 
 	public CasaCambio() {
-		super();
 	}
 	
 	public String getNombre() {
@@ -40,16 +38,19 @@ public class CasaCambio implements Comparable<CasaCambio> {
 	public void setMonedas(BSTree<MonedasDeCambio> monedas) {
 		this.monedas = monedas;
 	}
-	
+	public void clearCasas() {
+		this.direccion = null;
+		this.monedas = null;
+		this.nombre = null;
+	}
 	@Override
 	public String toString() {
-		return "Datos De La Casa: Nombre: " + nombre + ", Direccion: " + direccion+ "\n\t\t   Monedas De La Casa:" + monedas+"";
+		return "Datos De La Casa: Nombre: " + nombre + ", Direccion: " + direccion+ "\n\t\t   Monedas De La Casa:" + monedas;
 	}
 
 	@Override
 	public int compareTo(CasaCambio o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.nombre.compareTo(o.nombre);
 	}
 
 

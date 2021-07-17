@@ -13,8 +13,8 @@ public class Register<E> implements Comparable<Register<E>> {
 	}
 	
 	public boolean equals(Object o) {
-		if(o instanceof Register) {
-			Register<E> r = (Register<E>)o;
+		if (o instanceof Register) {
+			Register<E> r =(Register<E>)o;
 			return r.key == this.key;
 		}
 		return false;
