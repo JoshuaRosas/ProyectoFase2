@@ -1,23 +1,35 @@
 import java.util.Scanner;
 
+import java.util.Scanner;
+
 public class CasaCambio implements Comparable<CasaCambio> {
 	private String nombre;
+	int ruc;
 	private String direccion;
 	private double precioVenta;
 	private double precioCompra;
-	OrderListLinked <CasaCambio> aux2;
-	//Hash<CasaCambio> aux2;
+	//OrderListLinked <CasaCambio> aux2;
+	Hash<CasaCambio> aux2;
 	Scanner entradaDatos = new Scanner(System.in);
 	
-	public CasaCambio(String nombre, String direccion, double precioVenta, double precioCompra) {
+	public CasaCambio(int ruc, String nombre, String direccion, double precioVenta, double precioCompra) {
+		this.ruc = ruc;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.precioVenta = precioVenta;
 		this.precioCompra = precioCompra;
 	}
 	
+	public int getRuc() {
+		return ruc;
+	}
+
+	public void setRuc(int ruc) {
+		this.ruc = ruc;
+	}
+
 	public CasaCambio() {
-		aux2 = new OrderListLinked<CasaCambio>();
+		aux2 = new Hash<CasaCambio>(15);
 	}
 	
 	public String getNombre() {
@@ -53,6 +65,7 @@ public class CasaCambio implements Comparable<CasaCambio> {
 	}
 	
 	public void agregarCasa() {
+		int r1;
 		String n1;
 		String d1;
 		int pc1;
@@ -66,37 +79,17 @@ public class CasaCambio implements Comparable<CasaCambio> {
 		pc1 = entradaDatos.nextInt();
 		System.out.print("Precio de Venta: ");
 		pv1 = entradaDatos.nextInt();
-		CasaCambio casa1 = new CasaCambio(n1, d1, pc1, pv1);
-		if(aux2.isEmptyList()) {
-			aux2.insert(casa1);
-		} else {
-			int v = aux2.search(casa1);
-			if(v == 1) {
-				System.out.println("La casa de cambio ya esta registrada");
-			} else if(v == -1) {
-				aux2.insert(casa1);
-				System.out.println("La casa de cambio ha sido registrada");
-			}
-		}
+		System.out.print("Primer digito del RUC: ");
+		r1 = entradaDatos.nextInt();
+		CasaCambio casa1 = new CasaCambio(r1, n1, d1, pc1, pv1);
+		aux2.insert(r1, casa1);
 	}
 	
 	public void eliminarCasa() {
 		int r1;
-		String n1;
-		String c1;
-		System.out.println("Ingrese su usuario y contraseña");
-		System.out.print("Nombre: ");
-		n1 = entradaDatos.nextLine();
-		System.out.print("Contraseña: ");
-		c1 = entradaDatos.nextLine();
-		Usuario usuario1 = new Usuario(n1, c1);
-		int comp = aux.search(usuario1);
-		if(comp == 1) {
-			aux.remove(usuario1);
-			System.out.println("Su cuenta a sido eliminada");
-		} else if(comp == -1) {
-			System.out.println("Usuario no existente");
-		}
+		System.out.print("Primer digito del RUC: ");
+		r1 = entradaDatos.nextInt();
+		aux2.remove(r1);
 	}
 	
 	public void mostrarCasas() {
